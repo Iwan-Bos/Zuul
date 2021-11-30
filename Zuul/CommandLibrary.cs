@@ -16,6 +16,7 @@ namespace Zuul
 
 			validCommands.Add("help");
 			validCommands.Add("go");
+			validCommands.Add("look");
 			validCommands.Add("quit");
 		}
 

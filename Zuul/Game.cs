@@ -21,6 +21,7 @@ namespace Zuul
 			Room pub = new Room("in the campus pub");
 			Room lab = new Room("in a computing lab");
 			Room office = new Room("in the computing admin office");
+			Room cellar = new Room("down in the pub's cellar");
 
 			// initialise room exits
 			outside.AddExit("east", theatre);
@@ -30,6 +31,9 @@ namespace Zuul
 			theatre.AddExit("west", outside);
 
 			pub.AddExit("east", outside);
+			pub.AddExit("down", cellar);
+
+			cellar.AddExit("up", pub);
 
 			lab.AddExit("north", outside);
 			lab.AddExit("east", office);
@@ -96,6 +100,9 @@ namespace Zuul
 				case "go":
 					GoRoom(command);
 					break;
+				case "look":
+					Look();
+					break;
 				case "quit":
 					wantToQuit = true;
 					break;
@@ -104,13 +111,18 @@ namespace Zuul
 			return wantToQuit;
 		}
 
-		// implementations of user commands:
+        private void Look()
+		{
+			Console.WriteLine(currentRoom.GetLongDescription());
+		}
 
-		/**
+        // implementations of user commands:
+
+        /**
 		 * Print out some help information.
 		 * Here we print the mission and a list of the command words.
 		 */
-		private void PrintHelp()
+        private void PrintHelp()
 		{
 			Console.WriteLine("You are lost. You are alone.");
 			Console.WriteLine("You wander around at the university.");
