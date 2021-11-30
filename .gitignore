@@ -1,0 +1,10 @@
+### Folders ###
+Zuul/bin
+Zuul/obj
+.vs
+
+### Files ###
+Makefile
+
+### File Extensions ###
+*.bat
