@@ -5,19 +5,23 @@ namespace Zuul
     public class CommandLibrary
     {
         // a List that holds all valid command words
-        private List<string> validCommands;
+        private readonly List<string> validCommands;
 
         /**
 		 * Constructor - initialise the command words.
 		 */
         public CommandLibrary()
         {
-            validCommands = new List<string>();
-
-            validCommands.Add("help");
-            validCommands.Add("go");
-            validCommands.Add("look");
-            validCommands.Add("quit");
+            validCommands = new List<string>()
+            {
+                "help",
+                "look",
+				"inspect",
+				"go",
+                "take",
+                "drop",
+				"quit"
+			};
         }
 
         /**

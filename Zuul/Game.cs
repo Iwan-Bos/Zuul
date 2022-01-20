@@ -4,8 +4,8 @@ namespace Zuul
 {
     public class Game
     {
-        private Parser parser;
-        private Player player;
+        private readonly Parser parser;
+        private readonly Player player;
 
         public Game()
         {
@@ -24,8 +24,8 @@ namespace Zuul
             Room office = new Room("in the computing admin office");
             Room cellar = new Room("down in the pub's cellar");
 
-            // initialise room exits
-            outside.AddExit("east", theatre);
+			// initialise room exits
+			outside.AddExit("east", theatre);
             outside.AddExit("south", lab);
             outside.AddExit("west", pub);
 
@@ -42,11 +42,19 @@ namespace Zuul
             office.AddExit("west", lab);
 
             player.CurrentRoom = outside;  // start game outside
-        }
 
-        /**
-		 *  Main play routine.  Loops until end of play.
-		 */
+			// create the items
+			Item medkit = new Item(3, "some healing thing (healing uninplemented)");
+			Item rock = new Item(25, "dang that's a heavy rock,\n| you might want to drop this");
+
+			// add items to desired items Collection
+			outside.Chest.Put("medkit", medkit);
+			
+			player.Backpack.Put("rock", rock);
+		}
+
+
+        // Main play routine.  Loops until end of play.
         public void Play()
         {
             PrintWelcome();
@@ -64,8 +72,8 @@ namespace Zuul
                 else
                 {
                     Console.WriteLine();
-                    Console.WriteLine("You died........");
-                    break;
+                    Console.WriteLine("You died...");
+                    finished = true;
                 }
             }
             Console.WriteLine("Thank you for playing.");
@@ -95,44 +103,51 @@ namespace Zuul
         {
             bool wantToQuit = false;
 
-            if (command.IsUnknown())
-            {
-                Console.WriteLine("I don't know what you mean...");
-                return false;
-            }
-
+			if (command.IsUnknown())
+			{
+				Console.WriteLine("I don't know what you mean...");
+				return false;
+			}
+			
             string commandWord = command.GetCommandWord();
             switch (commandWord)
             {
                 case "help":
                     PrintHelp();
                     break;
-                case "go":
-                    GoRoom(command);
-                    break;
                 case "look":
                     Look();
                     break;
+				case "inspect":
+					Console.WriteLine(player.GetInvDescription());
+					break;
+				case "go":
+					GoRoom(command);
+					break;
+				case "take":
+					Take(command);
+					break;
+				case "drop":
+					Drop(command);
+					break;
                 case "quit":
                     wantToQuit = true;
                     break;
             }
-
             return wantToQuit;
         }
 
-        private void Look()
-        {
-            Console.WriteLine(player.CurrentRoom.GetLongDescription());
-        }
+		// implementations of user commands:
 
-        // implementations of user commands:
-
-        /**
+		private void Look()
+		{
+			Console.WriteLine(player.CurrentRoom.GetLongDescription());
+		}
+		/**
 		 * Print out some help information.
 		 * Here we print the mission and a list of the command words.
 		 */
-        private void PrintHelp()
+		private void PrintHelp()
         {
             Console.WriteLine("You are lost. You are alone.");
             Console.WriteLine("You wander around at the university.");
@@ -170,6 +185,23 @@ namespace Zuul
                 Console.WriteLine(player.CurrentRoom.GetLongDescription());
             }
         }
+        private void Take(Command command)
+        {
+			if (!command.HasSecondWord()) {
+				Console.WriteLine("Take what?");
+				return;
+			}
+			player.TakeFromChest(command.GetSecondWord());
+        }
+        private void Drop(Command command)
+		{
+			if (!command.HasSecondWord())
+			{
+				Console.WriteLine("Drop what?");
+				return;
+			}
+			player.DropToChest(command.GetSecondWord());
+		}
 
-    }
+	}
 }
