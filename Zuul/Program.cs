@@ -1,15 +1,13 @@
-﻿using System;
-
-namespace Zuul
+﻿namespace Zuul
 {
-    class Program
-    {
-        // Create and play the Game.
+	class Program
+	{
+		// Create and play the Game.
 
-        public static void Main(string[] args)
-        {
-            Game game = new Game();
-            game.Play();
-        }
-    }
+		public static void Main(string[] args)
+		{
+			Game game = new Game();
+			game.Play();
+		}
+	}
 }

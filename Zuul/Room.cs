@@ -1,83 +1,69 @@
 using System.Collections.Generic;
+using System;
 
 namespace Zuul
 {
-    public class Room
-    {
+	public class Room
+	{
 		public Inventory Chest { get; }
-		
+		public bool isLocked;
 		private string description;
-        private Dictionary<string, Room> exits; // stores exits of this room.
+		private Dictionary<string, Room> exits; // stores exits of this room.
 
-		public Room(string desc)
-        {
-            description = desc;
-            exits = new Dictionary<string, Room>();
-            Chest = new Inventory(500);
-        }
-        
+		public Room(string desc, bool locked)
+		{
+			description = desc;
+			isLocked = locked;
+			exits = new Dictionary<string, Room>();
+			Chest = new Inventory(10);
+		}
+
 		// Define an exit from this room.
-        public void AddExit(string direction, Room neighbor)
-        {
-            exits.Add(direction, neighbor);
-        }
-
-		/**
-		 * Returns a long description of this room, in the form:
-		 *     You are in the kitchen.
-		 *     Exits: north, west
-		 *     
-		 *     In this room's chest lies: 
-		 *     Item - Description
-		 *     Item - Description
-		 */
+		public void AddExit(string direction, Room neighbor)
+		{
+			exits.Add(direction, neighbor);
+		}
+		public bool IsLocked()
+		{
+			return isLocked;
+		}
 		public string GetLongDescription()
-        {
-            string str = "You are ";
-            str += description;
-            str += ".\n";
+		{
+			string str = "You are ";
+			str += description;
+			str += ".\n";
+			Console.ResetColor();
 			str += GetExitString();
 			str += ".\n";
-            return str;
-        }
-		
-        /**
-		 * Return the room that is reached if we go from this room in direction
-		 * "direction". If there is no room in that direction, return null.
-		 */
-        public Room GetExit(string direction)
-        {
-            if (exits.ContainsKey(direction))
-            {
-                return exits[direction];
-            }
-            else
-            {
-                return null;
-            }
-        }
+			return str;
+		}
+		public Room GetExit(string direction)
+		{
+			if (exits.ContainsKey(direction))
+			{
+				return exits[direction];
+			}
+			else
+			{
+				return null;
+			}
+		}
+		public string GetExitString()
+		{
+			string str = "Exits:";
 
-        /**
-		 * Return a string describing the room's exits, for example
-		 * "Exits: north, west".
-		 */
-        private string GetExitString()
-        {
-            string str = "Exits:";
-
-            // because `exits` is a Dictionary, we use a `foreach` loop
-            int countcommas = 0;
-            foreach (string key in exits.Keys)
-            {
-                if (countcommas != 0)
-                {
-                    str += ",";
-                }
-                str += " " + key;
-                countcommas++;
-            }
-
-            return str;
-        }
-    }
+			// because `exits` is a Dictionary, we use a `foreach` loop
+			int countcommas = 0;
+			foreach (string key in exits.Keys)
+			{
+				if (countcommas != 0)
+				{
+					str += ",";
+				}
+				str += " " + key;
+				countcommas++;
+			}
+			return str;
+		}
+	}
 }

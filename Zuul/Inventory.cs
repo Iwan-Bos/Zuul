@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Zuul
 {
@@ -35,26 +33,40 @@ namespace Zuul
 			Item item = null;
 
 			// find Item in items Collection
-			if (items.ContainsKey(itemName)) {
+			if (items.ContainsKey(itemName))
+			{
 				item = items[itemName];
 				// remove Item from items Collection if found
 				items.Remove(itemName);
-            }
-			else {
-				Console.WriteLine($"{itemName} was not found in this space");
 			}
 			return item;
 		}
 		public string ListItems() // Method for listing all items in the items Collection, returns string.
 		{
-			string itemlist = "---------------------------------\n";
-			foreach (KeyValuePair<string, Item> item in items)
+			string itemlist = null;
+			if (items.Count != 0)
 			{
-				itemlist += $"|> {item.Key} {item.Value.Weight}kg\n";
-				itemlist += $"| \'{item.Value.Description}\'\n";
+				itemlist += "---------------------------------\n";
+				foreach (KeyValuePair<string, Item> item in items)
+				{
+					itemlist += $"|> {item.Key} {item.Value.Weight}kg\n";
+					itemlist += $"| \'{item.Value.Description}\'\n";
+				}
+				itemlist += "---------------------------------\n";
 			}
-			itemlist += "---------------------------------\n";
+			else
+			{
+				itemlist += "Looks like it's empty";
+			}
 			return itemlist;
 		}
+		public bool CollectionContainsKey(string itemName)
+		{
+			if (items.ContainsKey(itemName))
+			{
+				return true;
+			}
+			return false;
+		} // Method for using a method somewhere else.
 	}
 }
