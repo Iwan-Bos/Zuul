@@ -18,7 +18,7 @@ namespace Zuul
 		{
 			// create the rooms
 			Room gate = new Room("past the gate that kept you inside", true);
-			Room field = new Room("in the field, behind the gates of the garden", false);
+			Room field = new Room("in the field, behind the gate of the garden", false);
 			Room grove = new Room("in a grove filled with trees", false);
 			Room fountain = new Room("in front of a wishing fountain.", false);
 			Room river = new Room("near a shallow river.", false);
@@ -64,26 +64,20 @@ namespace Zuul
 			Item key = new Item(2, "an antique looking key,\n| useful for unlocking things.");
 			Item penny = new Item(2, "a large penny found on the floor,\n| what mysteries could it hold?");
 			Item apple = new Item(3, "a shiny red apple found lying on the ground,\n| would almost be a waste to eat.");
+			Item map = new Item(1, "a map of the garden.");
 
 
 			// add items to desired items Collection
 			player.Backpack.Put("rock", rock);
-
-///			field.Chest.Put("", );
-			
+			field.Chest.Put("map", map);
 			grove.Chest.Put("apple", apple);
-			
 			river.Chest.Put("bandage", bandage);
-
 			fountain.Chest.Put("penny", penny);
-			
-///			cave.Chest.Put("", );
-			
-///			entrance.Chest.Put("", );
-			
-///			tunnel.Chest.Put("", );
-			
 			treasureroom.Chest.Put("key", key);
+
+///			cave.Chest.Put("", );
+///			entrance.Chest.Put("", );
+///			tunnel.Chest.Put("", );
 		}
 
 
@@ -193,7 +187,7 @@ namespace Zuul
 		}
 		private void PrintHelp()
 		{
-			Console.WriteLine("You wake up inside a field,");
+			Console.WriteLine("You wake up in a field,");
 			Console.WriteLine("The only thing between you and freedom is the garden gate");
 			Console.WriteLine();
 			// let the parser print the commands
@@ -332,6 +326,28 @@ namespace Zuul
 							player.Damage(10);
 							Console.ResetColor();
 							player.Backpack.Get("apple"); 
+							return;
+						case "map":
+							Console.ForegroundColor = ConsoleColor.Yellow;
+							Console.WriteLine("You look at the map");
+							Console.ResetColor();
+							Console.WriteLine("███████████████████████████████████████████████████████");
+							Console.WriteLine("██┌───────────┐██████████┌───────────┐██┌───────────┐██");
+							Console.WriteLine("██│░░░░░░░░░░░│██████████│░░░░░░░░░░░│██│░░░░░░░░░░░│██");
+							Console.WriteLine("██│░░░Cave░░░░│──────────│░░fountain░│──│░░░river░░░│██");
+							Console.WriteLine("██│░░░░░░░░░░░│██████████│░░░░░░░░░░░│██│░░░░░░░░░░░│██");
+							Console.WriteLine("██└───────────┘██████████└───────────┘██└───────────┘██");
+							Console.WriteLine("███████║║██████████████████████│██████████████│████████");
+							Console.WriteLine("████╔══════╗██╔══════╗███┌───────────┐██┌───────────┐██");
+							Console.WriteLine("████║entry░║──║tunnel║███│░░░░░░░░░░░│██│░░░░░░░░░░░│██");
+							Console.WriteLine("████╚══════╝██╚══════╝███│░░░field░░░│──│░░░grove░░░│██");
+							Console.WriteLine("█████████████████║║██████│░░░░░░░░░░░│██│░░░░░░░░░░░│██");
+							Console.WriteLine("██████████████╔══════╗███└───────────┘██└───────────┘██");
+							Console.WriteLine("██████████████║░????░║█████████│███████████████████████");
+							Console.WriteLine("██████████████╚══════╝██████╔══════╗███████████████████");
+							Console.WriteLine("████████████████████████████║░gate░║███████████████████");
+							Console.WriteLine("████████████████████████████╚══════╝███████████████████");
+							Console.WriteLine("███████████████████████████████████████████████████████");
 							return;
 					}
 					Console.ForegroundColor = ConsoleColor.Red;
