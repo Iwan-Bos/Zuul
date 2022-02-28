@@ -247,11 +247,10 @@ namespace Zuul
 			}
 			player.DropToChest(command.GetSecondWord());
 		}
-		private void Use(Command command)
+		public void Use(Command command)
 		{
 			string itemName = command.GetSecondWord();
 			string direction = command.GetThirdWord();
-
 			if (command.HasSecondWord())
 			{
 				if (player.Backpack.CollectionContainsKey(itemName))
@@ -306,7 +305,7 @@ namespace Zuul
 							System.Threading.Thread.Sleep(500);
 							Console.Write(".");
 							System.Threading.Thread.Sleep(1200);
-							Console.ForegroundColor= ConsoleColor.Green;
+							Console.ForegroundColor = ConsoleColor.Green;
 							Console.WriteLine("\nIt did nothing :D");
 							Console.ResetColor();
 							player.Backpack.Get("penny");
@@ -325,12 +324,12 @@ namespace Zuul
 							Console.WriteLine("\nIt tastes disgusting,\n reduced hp by 10");
 							player.Damage(10);
 							Console.ResetColor();
-							player.Backpack.Get("apple"); 
+							player.Backpack.Get("apple");
 							return;
 						case "map":
 							Console.ForegroundColor = ConsoleColor.Yellow;
 							Console.WriteLine("You look at the map");
-							Console.ResetColor();
+							Console.ResetColor(); // Map gedieft van koen
 							Console.WriteLine("███████████████████████████████████████████████████████");
 							Console.WriteLine("██┌───────────┐██████████┌───────────┐██┌───────────┐██");
 							Console.WriteLine("██│░░░░░░░░░░░│██████████│░░░░░░░░░░░│██│░░░░░░░░░░░│██");

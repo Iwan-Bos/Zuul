@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Zuul
 {
 	public class Player
@@ -30,7 +29,7 @@ namespace Zuul
 				confirmation = $"Applied the bandage and healed {amount}hp!";
 				return confirmation;
 			}
-			if (health == 100) // if player is dumb and wants to heal, ask for confirmation
+			if (health == maxhealth) // if player is dumb and wants to heal, ask for confirmation
 			{
 				Console.ForegroundColor = ConsoleColor.Yellow;
 				Console.WriteLine("Your hp is already max");
@@ -116,8 +115,7 @@ namespace Zuul
 
 			string str = "\n";
 			str += $"you check the room: {chestStoredWeight}/{chestMaxWeight} kg\n";
-			str += CurrentRoom.Chest.ListItems();
-			str += "\n";
+			str += $"{CurrentRoom.Chest.ListItems()}\n";
 			str += $"You check your backpack: {bpackStoredWeight}/{bpackMaxWeight} kg\n";
 			str += Backpack.ListItems();
 			return str;

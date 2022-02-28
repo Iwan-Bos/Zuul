@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace Zuul
 {
@@ -13,7 +14,7 @@ namespace Zuul
 			items = new Dictionary<string, Item>();
 		}
 
-		public int WeightCheck() // Method for checking if the Item exists and fits in the items Collection.
+		public int WeightCheck() 
 		{
 			int allItemWeight = 0;
 			int remainingWeight;
@@ -26,9 +27,9 @@ namespace Zuul
 			// calculate the remaining weight that the inventory can take
 			remainingWeight = maxWeight - allItemWeight;
 			return remainingWeight;
-		}
+		} // Method for checking if the Item exists and fits in the items Collection.
 		public void Put(string itemName, Item item) { items.Add(itemName, item); } // Method for putting an Item to the items Collection.
-		public Item Get(string itemName) // Method for removing an item from an inventory, and returning the Item.
+		public Item Get(string itemName) 
 		{
 			Item item = null;
 
@@ -40,8 +41,8 @@ namespace Zuul
 				items.Remove(itemName);
 			}
 			return item;
-		}
-		public string ListItems() // Method for listing all items in the items Collection, returns string.
+		} // Method for removing an item from an inventory, and returning the Item.
+		public string ListItems() 
 		{
 			string itemlist = null;
 			if (items.Count != 0)
@@ -59,7 +60,7 @@ namespace Zuul
 				itemlist += "Looks like it's empty";
 			}
 			return itemlist;
-		}
+		} // Method for listing all items in the items Collection, returns string.
 		public bool CollectionContainsKey(string itemName)
 		{
 			if (items.ContainsKey(itemName))
@@ -68,5 +69,22 @@ namespace Zuul
 			}
 			return false;
 		} // Method for using a method somewhere else.
+	///	public void ListItems2() // Method for printing all items in the items Collection. returns nothing for use with console colors.
+	///	{
+	///		if (items.Count != 0)
+	///		{
+	///			Console.WriteLine("---------------------------------\n");
+	///			foreach (KeyValuePair<string, Item> item in items)
+	///			{
+	///				Console.WriteLine($"|> {item.Key} {item.Value.Weight}kg\n");
+	///				Console.WriteLine($"| \'{item.Value.Description}\'\n");
+	///			}
+	///			Console.WriteLine("---------------------------------\n");
+	///		}
+	///		else
+	///		{
+	///			Console.WriteLine("Looks like it's empty");
+	///		}
+	///	}
 	}
 }
